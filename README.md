@@ -4,8 +4,14 @@ Vencord plugin to control YouTube Music from Discord with synchronized lyrics.
 
 ## Preview
 
-<img src="https://github.com/user-attachments/assets/player-preview.png" alt="Player Controls" width="300"/>
-<img src="https://github.com/user-attachments/assets/modal-preview.png" alt="Player Modal" width="400"/>
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/6ca1c943-9fd5-4683-9811-850fdc32ba3f" alt="YouTube Music Player Controls" width="320"/>
+  <img src="https://github.com/user-attachments/assets/2dd25da5-e85d-40b5-b1bd-bff76541c008" alt="Synchronized Lyrics Modal" width="480"/>
+  
+  <br>
+  
+  *Compact player controls (left) and full lyrics modal (right)*
+</div>
 
 ## Features
 
