@@ -10,12 +10,12 @@ Vencord plugin to control YouTube Music from Discord with synchronized lyrics.
   
   <br>
   
-  *Compact player controls (left) and full lyrics modal (right)*
+  *Player controls (left) and lyrics modal (right)*
 </div>
 
 ## Features
 
-- Play/pause, skip, previous, shuffle, repeat
+- Play/pause, skip, previous, shuffle, repeat, lyrics
 - Seek bar and volume control
 - Real-time synchronized lyrics that auto-scroll
 - Adjustable lyric timing
