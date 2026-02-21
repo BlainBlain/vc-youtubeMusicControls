@@ -21,10 +21,10 @@ export default definePlugin({
 
     patches: [
         {
-            find: ".NITRO_PRIVACY_PERK_BETA_COACHMARK));",
+            find: ".WIDGETS_RTC_UPSELL_COACHMARK),",
             replacement: {
                 // react.jsx)(AccountPanel or $self.PanelWrapper, { ..., showTaglessAccountPanel: blah })
-                match: /(?<=\i\.jsxs?\)\()(\i(?:\.\i)?),{(?=[^}]*?userTag:\i,(occluded|hidePrivateData):)/,
+                match: /(?<=\i\.jsxs?\)\()(\i(?:\.\i)?),{(?=[^}]*?userTag:\i,occluded:)/,
                 // react.jsx(WrapperComponent, { VencordOriginal: AccountPanel/PanelWrapper, ...
                 replace: "$self.PanelWrapper,{VencordOriginal:$1,",
             },
