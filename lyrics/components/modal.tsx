@@ -7,6 +7,7 @@
 import { BaseText } from "@components/BaseText";
 import { ModalContent, ModalHeader, ModalProps, ModalRoot } from "@utils/modal";
 
+import { settings } from "../../settings";
 import { Song, YoutubeMusicStore } from "../../YtmStore";
 import { cl, NoteSvg, scrollClasses, useLyrics } from "./util";
 
@@ -40,7 +41,7 @@ function ModalHeaderContent({ track }: { track: Song; }) {
 export function YoutubeMusicLyricsModal({ rootProps }: { rootProps: ModalProps; }) {
     const { track, lyrics, currLrcIndex } = useLyrics({ scroll: false });
     const currentLyrics = lyrics || null;
-    const position = track ? YoutubeMusicStore.mPosition : 0;
+    const delay = settings.store.LyricDelay / 1000;
 
     return (
         <ModalRoot {...rootProps}>
@@ -56,9 +57,9 @@ export function YoutubeMusicLyricsModal({ rootProps }: { rootProps: ModalProps; 
                                 className={currLrcIndex === i ? cl("modal-line-current") : cl("modal-line")}
                             >
                                 <span className={cl("modal-timestamp")}
-                                    onClick={() => YoutubeMusicStore.seek(line.time * 1000)}
+                                    onClick={() => YoutubeMusicStore.seek((line.time + delay) * 1000)}
                                 >
-                                    {formatTime(line.time)}
+                                    {formatTime(line.time + delay)}
                                 </span>
                                 {line.text || NoteSvg(cl("modal-note"))}
                             </BaseText>
