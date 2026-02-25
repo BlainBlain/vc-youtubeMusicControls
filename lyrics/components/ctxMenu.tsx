@@ -9,6 +9,7 @@ import { copyWithToast } from "@utils/discord";
 import { openModal } from "@utils/modal";
 import { FluxDispatcher, Menu } from "@webpack/common";
 
+import { settings } from "../../settings";
 import { YoutubeMusicLrcStore } from "../store";
 import { YoutubeMusicLyricsModal } from "./modal";
 import { useLyrics } from "./util";
@@ -44,6 +45,24 @@ export function YoutubeMusicLyricsContextMenu() {
                 label="Open lyrics modal"
                 action={() => openModal(props => <YoutubeMusicLyricsModal rootProps={props} />)}
                 icon={OpenExternalIcon}
+            />
+            <Menu.MenuSeparator />
+            <Menu.MenuControlItem
+                id="lyric-delay"
+                label={`Lyric Delay: ${settings.store.LyricDelay}ms`}
+                control={(props, ref) => (
+                    <Menu.MenuSliderControl
+                        {...props}
+                        ref={ref}
+                        minValue={-2500}
+                        maxValue={2500}
+                        value={settings.store.LyricDelay}
+                        onChange={(value: number) => {
+                            settings.store.LyricDelay = Math.round(value / 250) * 250;
+                        }}
+                        renderValue={(value: number) => `${Math.round(value / 250) * 250}ms`}
+                    />
+                )}
             />
         </Menu.Menu>
     );

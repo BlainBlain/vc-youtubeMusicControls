@@ -125,3 +125,7 @@
 .vc-ytm-lyrics-on:hover {
     color: var(--vc-ytm-slider-grabber) !important;
 }
+
+#ytm-lyrics-menu-lyric-delay [class^="barFill"] {
+    background-color: #f03;
+}
