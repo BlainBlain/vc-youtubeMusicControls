@@ -109,14 +109,24 @@ function CopyContextMenu({ name, path }: { name: string; path: string; }) {
                 key={copyId}
                 id={copyId}
                 label={`Copy ${name} Link`}
-                action={() => copyWithToast(`https://music.youtube.com${path}`)}
+                action={() =>
+                    copyWithToast(
+                        /^https?:\/\//i.test(path)
+                            ? path
+                            : `https://music.youtube.com${path}`,
+                    )
+                }
                 icon={LinkIcon}
             />
             <Menu.MenuItem
                 key={openId}
                 id={openId}
                 label={`Open ${name} in YouTube Music`}
-                action={() => YoutubeMusicStore.openExternal(path)}
+                action={() =>
+                    /^https?:\/\//i.test(path)
+                        ? VencordNative.native.openExternal(path)
+                        : YoutubeMusicStore.openExternal(path)
+                }
                 icon={OpenExternalIcon}
             />
         </Menu.Menu>
@@ -329,16 +339,22 @@ function AlbumContextMenu({ track }: { track: Song; }) {
 
 function makeLinkProps(name: string, condition: unknown, path: string) {
     if (!condition) return {};
+    const isAbsoluteUrl = /^https?:\/\//i.test(path);
 
     return {
         role: "link",
-        onClick: () => YoutubeMusicStore.openExternal(path),
+        onClick: () =>
+            isAbsoluteUrl
+                ? VencordNative.native.openExternal(path)
+                : YoutubeMusicStore.openExternal(path),
         onContextMenu: makeContextMenu(name, path),
     } satisfies React.HTMLAttributes<HTMLElement>;
 }
 
 function Info({ track }: { track: NonNullable<Song>; }) {
     const img = track?.imageSrc;
+    const artistLink =
+        track.artistUrl ?? `/search?q=${encodeURIComponent(track.artist)}`;
 
     const [coverExpanded, setCoverExpanded] = useState(false);
 
@@ -388,6 +404,11 @@ function Info({ track }: { track: NonNullable<Song>; }) {
                             className={cl("artist")}
                             style={{ fontSize: "inherit" }}
                             title={track.artist}
+                            {...makeLinkProps(
+                                "Artist",
+                                track.artist,
+                                artistLink,
+                            )}
                         >
                             {track.artist}
                         </span>
